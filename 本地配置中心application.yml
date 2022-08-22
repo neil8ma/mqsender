@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: icp-config-server
+  profiles:
+    active:
+      - native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///D:\work\config\cc-config.properties
+          fail-on-error: false
+#        git:
+#          uri: http://10.100.10.151:16666/r/phase2-dev.git
+#          search-paths:
+#          - /
+#          username: cc
+#          password: 123456
+#          default-label: master
+
+server:
+  port: 26020
+
+management:
+  port: 27020
+  context-path: /mgmt
+  security:
+    enabled: false
+
+logging:
+  level:
+    root: WARN
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://peer1:26000/eureka/

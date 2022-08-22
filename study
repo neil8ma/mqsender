@@ -1,0 +1,3 @@
+查找redis是哪个服务运行
+netstat -aon|findstr "6379"
+tasklist|findstr "PID号"
