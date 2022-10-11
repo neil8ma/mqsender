@@ -1,6 +1,7 @@
 package com.cpit.mqsender;
 
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import com.cpit.common.Dispatcher;
@@ -34,6 +35,17 @@ public class BaseCommands {
     public void p() {
         sender.sendp();
     }
+
+    @ShellMethod("普天桩发消息")
+    public void error(String batteryCode,String cardNo) {
+        sender.error(batteryCode,cardNo);
+    }
+
+    @ShellMethod("普天桩发消息")
+    public void rp() {
+        sender.rp();
+    }
+
     @ShellMethod("普天桩发消息")
     public void ps() {
         sender.sendps();
@@ -43,8 +55,9 @@ public class BaseCommands {
         sender.sendYFY();
     }
     @ShellMethod("亿联桩发消息")
-    public void l() {
-
+    public String l() {
+        String maming = "maming is ok";
+        return maming.substring(0,2);
     }
     @ShellMethod("亿联桩发消息")
     public void init() {
@@ -98,6 +111,154 @@ public class BaseCommands {
             logger.info("查询结果："+result);
         }catch(Exception ex){
             logger.error("error in queryChargingInfo",ex);
+        }
+    }
+
+    @ShellMethod("调用计费策略")
+    public void dangechelue() {
+        try{
+            String url = "http://localhost:26150//bil/getConnectivityBusinessStrategyInformation";
+                batteryCode = "0107141106101702";
+                cardId = "6803131700038297";
+                BfBusinessStrategyT bfBusinessStrategyT = new BfBusinessStrategyT();
+                bfBusinessStrategyT.setBatteryCode(batteryCode);
+                bfBusinessStrategyT.setCardId(cardId);
+                bfBusinessStrategyT.setType(1);
+                bfBusinessStrategyT.setChargeStartTime(new Date());
+                bfBusinessStrategyT.setChargeEndTime(new Date());
+            String param = JSONUtil.toJsonStr(bfBusinessStrategyT);
+            ResultInfo result = (ResultInfo) new Dispatcher(restTemplate).doPost(url, ResultInfo.class, param);
+            logger.info("查询结果："+result);
+        }catch(Exception ex){
+            logger.error("error in queryChargingInfo",ex);
+        }
+    }
+
+    @ShellMethod("xxx")
+    public void youlishu() {
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<3;j++){
+                int a = RandomUtil.randomInt(-20,20);
+                int b = RandomUtil.randomInt(-20,20);
+                if(b>=0)
+                    System.out.printf("%20s",a + " - "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " - ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+    }
+
+    @ShellMethod("xxx")
+    public void youlishujian() {
+        System.out.printf("%20s\n","---------------有理数减法-----------------");
+        //有理数减法，全负数
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(-20,0);
+                int b = RandomUtil.randomInt(-20,0);
+                if(b>=0)
+                    System.out.printf("%20s",a + " - "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " - ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+        System.out.printf("%20s\n","--------------------------------");
+        //有理数减法，前负后正
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(-20,0);
+                int b = RandomUtil.randomInt(0,20);
+                if(b>=0)
+                    System.out.printf("%20s",a + " - "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " - ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+        System.out.printf("%20s\n","--------------------------------");
+        //有理数减法，前正后负
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(0,20);
+                int b = RandomUtil.randomInt(-20,0);
+                if(b>=0)
+                    System.out.printf("%20s",a + " - "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " - ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+        System.out.printf("%20s\n","--------------------------------");
+        //有理数减法，前正后正
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(0,20);
+                int b = RandomUtil.randomInt(0,20);
+                if(b>=0)
+                    System.out.printf("%20s",a + " - "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " - ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+
+    }
+
+    @ShellMethod("xxx")
+    public void youlishujia() {
+        System.out.printf("%20s\n","---------------有理数加法-----------------");
+        //有理数减法，全负数
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(-20,0);
+                int b = RandomUtil.randomInt(-20,0);
+                if(b>=0)
+                    System.out.printf("%20s",a + " + "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " + ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+        System.out.printf("%20s\n","--------------------------------");
+        //有理数减法，前负后正
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(-20,0);
+                int b = RandomUtil.randomInt(0,20);
+                if(b>=0)
+                    System.out.printf("%20s",a + " + "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " + ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+        System.out.printf("%20s\n","--------------------------------");
+        //有理数减法，前正后负
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(0,20);
+                int b = RandomUtil.randomInt(-20,0);
+                if(b>=0)
+                    System.out.printf("%20s",a + " + "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " + ("+b +") =    ");
+            }
+            System.out.println("");
+        }
+        System.out.printf("%20s\n","--------------------------------");
+        //有理数减法，前正后正
+        for(int i = 0;i<10; i++){
+            for(int j = 0;j<4;j++){
+                int a = RandomUtil.randomInt(0,20);
+                int b = RandomUtil.randomInt(0,20);
+                if(b>=0)
+                    System.out.printf("%20s",a + " + "+b +" =    ");
+                else
+                    System.out.printf("%20s",a + " + ("+b +") =    ");
+            }
+            System.out.println("");
         }
     }
 

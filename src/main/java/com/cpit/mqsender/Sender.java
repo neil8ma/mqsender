@@ -45,35 +45,103 @@ public class Sender {
      *  ]]
      */
     public void sendp() {
+            for(int i = 0;i< 73795;i++){
+                MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
+                monRechargeRecord.setCardId(Data.allCard.get(RandomUtil.randomInt(0,73795)));
+                monRechargeRecord.setDeviceNo(Data.allBatteryCharge.get(RandomUtil.randomInt(0,19279)));
+                monRechargeRecord.setOperatorId("0200");
+                monRechargeRecord.setRechargeType("1");
+                monRechargeRecord.setChargerCode("0107131010051207");
+                monRechargeRecord.setVin("LZYTBTBW6H1059669");
+                monRechargeRecord.setPlateNumber("0      ");
+                monRechargeRecord.setStartSoc("47");
+                monRechargeRecord.setEndSoc("99");
+                monRechargeRecord.setAh("5273");
+                monRechargeRecord.setKwh("91.15");
+                monRechargeRecord.setChargeTime("67");
+                monRechargeRecord.setStrategy("4");
+                monRechargeRecord.setStrategyParam("0");
+                monRechargeRecord.setNormalEnd("81");
+                monRechargeRecord.setStartTime("2022-09-29 11:09:33");
+                monRechargeRecord.setTraceTime("2022-09-29 11:10:40");
+                monRechargeRecord.setEndTime("2022-09-29 11:10:40");
+                monRechargeRecord.setStartKwh("97694.18");
+                monRechargeRecord.setEndKwh("97785.33");
+                monRechargeRecord.setPlatTransFlowNum("200210823069788");
+                monRechargeRecord.setChargeBookNo("0");
+                monRechargeRecord.setSerialNo("0000");
+                monRechargeRecord.setChargeSource("5273");
+                monRechargeRecord.setGunNum("02");
+                monRechargeRecord.setIsComplementaryBuckle("1");
+                monRechargeRecord.setMsgCode("0x79");
+                amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
+            }
+    }
+
+    public void error(String batteryCode,String cardNo){
         MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
-        monRechargeRecord.setDeviceNo("0107141609070310");
-        monRechargeRecord.setOperatorId("0200");
+        monRechargeRecord.setDeviceNo(batteryCode);
+        monRechargeRecord.setCardId(cardNo);
+        monRechargeRecord.setOperatorId(null);
         monRechargeRecord.setRechargeType("1");
-        monRechargeRecord.setCardId("6801131300008547");
-        monRechargeRecord.setChargerCode("5273");
-        monRechargeRecord.setVin("LZYTBTBW6H1059669");
-        monRechargeRecord.setPlateNumber("0      ");
-        monRechargeRecord.setStartSoc("47");
+        monRechargeRecord.setChargerCode(batteryCode);
+        monRechargeRecord.setVin(null);
+        monRechargeRecord.setPlateNumber(null);
+        monRechargeRecord.setStartSoc("65");
         monRechargeRecord.setEndSoc("99");
-        monRechargeRecord.setAh("5273");
-        monRechargeRecord.setKwh("91.15");
-        monRechargeRecord.setChargeTime("4311");
-        monRechargeRecord.setStrategy("4");
-        monRechargeRecord.setStrategyParam("0");
-        monRechargeRecord.setNormalEnd("81");
-        monRechargeRecord.setStartTime("2022-07-21 08:23:08");
-        monRechargeRecord.setTraceTime("2022-08-12 17:06:27");
-        monRechargeRecord.setEndTime("2022-07-21 09:34:59");
-        monRechargeRecord.setStartKwh("97694.18");
-        monRechargeRecord.setEndKwh("97785.33");
-        monRechargeRecord.setPlatTransFlowNum("200210823069788");
-        monRechargeRecord.setChargeBookNo("0");
-        monRechargeRecord.setSerialNo("0000");
-        monRechargeRecord.setChargeSource("5273");
+        monRechargeRecord.setAh("0");
+        monRechargeRecord.setKwh("30");
+        monRechargeRecord.setChargeTime("10800");
+        monRechargeRecord.setStrategy(null);
+        monRechargeRecord.setStrategyParam(null);
+        monRechargeRecord.setNormalEnd(null);
+        monRechargeRecord.setStartTime("2022-10-10 10:00:07");
+        monRechargeRecord.setTraceTime("2022-10-10 09:00:00");
+        monRechargeRecord.setEndTime("2022-10-10 13:00:07");
+        monRechargeRecord.setStartKwh("100.00");
+        monRechargeRecord.setEndKwh("130.00");
+        monRechargeRecord.setPlatTransFlowNum("200101000083451");
+        monRechargeRecord.setChargeBookNo(null);
+        monRechargeRecord.setSerialNo("0");
+        monRechargeRecord.setChargeSource("2");
         monRechargeRecord.setGunNum("02");
+        monRechargeRecord.setIsComplementaryBuckle("1");
         monRechargeRecord.setMsgCode("0x79");
         amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
     }
+
+    public void rp() {
+            MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
+            monRechargeRecord.setDeviceNo("0104030A02120606");
+            monRechargeRecord.setCardId("7810118742115220");
+            monRechargeRecord.setOperatorId("0200");
+            monRechargeRecord.setRechargeType("1");
+            monRechargeRecord.setChargerCode("0104030A02120606");
+            monRechargeRecord.setVin("LZYTBTBW6H1059669");
+            monRechargeRecord.setPlateNumber("0      ");
+            monRechargeRecord.setStartSoc("47");
+            monRechargeRecord.setEndSoc("99");
+            monRechargeRecord.setAh("5273");
+            monRechargeRecord.setKwh("91.15");
+            monRechargeRecord.setChargeTime("67");
+            monRechargeRecord.setStrategy("4");
+            monRechargeRecord.setStrategyParam("0");
+            monRechargeRecord.setNormalEnd("81");
+            monRechargeRecord.setStartTime("2022-09-29 11:09:33");
+            monRechargeRecord.setTraceTime("2022-09-29 11:10:40");
+            monRechargeRecord.setEndTime("2022-09-29 11:10:40");
+            monRechargeRecord.setStartKwh("97694.18");
+            monRechargeRecord.setEndKwh("97785.33");
+            monRechargeRecord.setPlatTransFlowNum("200210823069788");
+            monRechargeRecord.setChargeBookNo("0");
+            monRechargeRecord.setSerialNo("0000");
+            monRechargeRecord.setChargeSource("5273");
+            monRechargeRecord.setGunNum("02");
+            monRechargeRecord.setIsComplementaryBuckle("1");
+            monRechargeRecord.setMsgCode("0x79");
+            amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
+    }
+
     public void sendps() {
         for (int i = startPos;i<endPos&&i<Data.allCard.size();i++){
             for (int j = startPos;j<endPos&&j<Data.allBatteryCharge.size();j++){
