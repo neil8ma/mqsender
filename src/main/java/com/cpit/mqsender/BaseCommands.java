@@ -1,6 +1,10 @@
 package com.cpit.mqsender;
 
+import cn.hutool.Hutool;
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
@@ -37,8 +41,28 @@ public class BaseCommands {
     }
 
     @ShellMethod("普天桩发消息")
-    public void error(String batteryCode,String cardNo) {
-        sender.error(batteryCode,cardNo);
+    public void jiujiu() {
+        for(int i = 0 ;i<80;i++){
+            for(int j = 0 ;j<10;j++){
+                int a = RandomUtil.randomInt(2,11);
+                int b = RandomUtil.randomInt(2,11);
+                System.out.print(a*b);
+                System.out.print("      ");
+            }
+            System.out.println("");
+        }
+    }
+
+    @ShellMethod("普天桩发消息")
+    public void error(String _batteryCode,String _cardNo) {
+        batteryCode = _batteryCode;
+        cardId = _cardNo;
+        sender.error(batteryCode,cardId);
+    }
+
+    @ShellMethod("普天桩发消息")
+    public void reerror() {
+        sender.error(batteryCode,cardId);
     }
 
     @ShellMethod("普天桩发消息")
@@ -54,15 +78,32 @@ public class BaseCommands {
     public void y() {
         sender.sendYFY();
     }
+
+    @ShellMethod("英飞源桩发消息")
+    public void yp(){
+        sender.sendYFYP();
+    }
     @ShellMethod("亿联桩发消息")
     public String l() {
         String maming = "maming is ok";
-        return maming.substring(0,2);
+        return DateUtil.date().toString();
+//        return maming.substring(0,2);
     }
     @ShellMethod("亿联桩发消息")
     public void init() {
         sender.init();
     }
+
+    @ShellMethod("亿联结算消息")
+    public void yl(){
+        sender.sendYL();
+    }
+
+    @ShellMethod("过程消息")
+    public void pp() {
+        sender.sendpp();
+    }
+
 
     @ShellMethod("亿联桩发消息")
     public void ji(int i) {
@@ -118,14 +159,14 @@ public class BaseCommands {
     public void dangechelue() {
         try{
             String url = "http://localhost:26150//bil/getConnectivityBusinessStrategyInformation";
-                batteryCode = "0107141106101702";
-                cardId = "6803131700038297";
+                batteryCode = "0107141309082801";
+                cardId = "6803131300027583";
                 BfBusinessStrategyT bfBusinessStrategyT = new BfBusinessStrategyT();
                 bfBusinessStrategyT.setBatteryCode(batteryCode);
                 bfBusinessStrategyT.setCardId(cardId);
                 bfBusinessStrategyT.setType(1);
-                bfBusinessStrategyT.setChargeStartTime(new Date());
-                bfBusinessStrategyT.setChargeEndTime(new Date());
+                bfBusinessStrategyT.setChargeStartTime(DateUtil.parse("2022-11-03 14:51:29"));
+                bfBusinessStrategyT.setChargeEndTime(DateUtil.parse("2022-11-03 14:51:29"));
             String param = JSONUtil.toJsonStr(bfBusinessStrategyT);
             ResultInfo result = (ResultInfo) new Dispatcher(restTemplate).doPost(url, ResultInfo.class, param);
             logger.info("查询结果："+result);
@@ -147,6 +188,11 @@ public class BaseCommands {
             }
             System.out.println("");
         }
+    }
+
+    @ShellMethod("ooo")
+    public void ooo() {
+        System.out.println(SecureUtil.md5("`6nT(6+^_Gs4rtY#1!@"));
     }
 
     @ShellMethod("xxx")
