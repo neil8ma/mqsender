@@ -134,24 +134,24 @@ public class Sender {
 
     public void rp() {
             MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
-            monRechargeRecord.setDeviceNo("0107130206042001");
-            monRechargeRecord.setCardId("6806131000048793");
+            monRechargeRecord.setDeviceNo("0307250612011943");
+            monRechargeRecord.setCardId("7810113456160920");
             monRechargeRecord.setOperatorId("0200");
             monRechargeRecord.setRechargeType("1");
-            monRechargeRecord.setChargerCode("0107130206042001");
+            monRechargeRecord.setChargerCode("0307250612011943");
             monRechargeRecord.setVin("LZYTBTBW6H1059669");
             monRechargeRecord.setPlateNumber("0      ");
             monRechargeRecord.setStartSoc("47");
             monRechargeRecord.setEndSoc("99");
             monRechargeRecord.setAh("5273");
             monRechargeRecord.setKwh("10.5");
-            monRechargeRecord.setChargeTime("420");
+            monRechargeRecord.setChargeTime("3564");
             monRechargeRecord.setStrategy("4");
             monRechargeRecord.setStrategyParam("0");
             monRechargeRecord.setNormalEnd("81");
-            monRechargeRecord.setStartTime("2023-01-15 10:51:00");
+            monRechargeRecord.setStartTime("2023-02-14 11:38:59");
             monRechargeRecord.setTraceTime("2022-09-29 11:10:40");
-            monRechargeRecord.setEndTime("2023-01-15 10:58:00");
+            monRechargeRecord.setEndTime("2023-02-14 12:38:24");
             monRechargeRecord.setStartKwh("10.0000");
             monRechargeRecord.setEndKwh("20.5000");
             monRechargeRecord.setPlatTransFlowNum("609141229083446");

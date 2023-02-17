@@ -1,6 +1,7 @@
 package com.cpit.mqsender;
 
 import cn.hutool.Hutool;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
@@ -26,9 +27,9 @@ public class BaseCommands {
 
     private static final Log logger = LogFactory.get();
 
-    String cardId;
+    String cardId = "6806131300048918";
 
-    String batteryCode;
+    String batteryCode = "0107131007010315";
     @Autowired
     Sender sender;
 
@@ -104,6 +105,15 @@ public class BaseCommands {
         sender.sendpp();
     }
 
+    @ShellMethod("我都开始")
+    public void test() {
+        DateTime begin = DateUtil.parse("2023-2-15 19:05:50");
+        DateTime end = DateUtil.parse("2023-2-15 10:05:50");
+        DateTime b = DateUtil.parse("2023-2-15 11:05:50");
+        boolean isFind = DateUtil.isIn(b,begin,end);
+        System.out.println(isFind);
+    }
+
 
     @ShellMethod("亿联桩发消息")
     public void ji(int i) {
@@ -113,7 +123,7 @@ public class BaseCommands {
     @ShellMethod("调用计费策略")
     public void redo() {
         try{
-            String url = "http://localhost:26150//bil/batchGetConnectivityBusinessStrategyInformation";
+            String url = "http://localhost:26750//bil/batchGetConnectivityBusinessStrategyInformation";
             BfBusinessStrategyT bfBusinessStrategyT = new BfBusinessStrategyT();
             bfBusinessStrategyT.setBatteryCode(batteryCode);
             bfBusinessStrategyT.setCardId(cardId);
