@@ -348,9 +348,6 @@ public class BaseCommands {
             }
             System.out.println("");
         }
-
-        Set set = new HashSet();
-        set.stream().filter(str -> str
     }
 
 }
