@@ -1,5 +1,6 @@
 package com.cpit.mqsender;
 
+import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
@@ -21,9 +22,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service
 public class Sender {
@@ -85,6 +85,8 @@ public class Sender {
             }
     }
 
+
+
     /**
      * MonRechargeRecordDto [deviceNo=01030A0006030807, ver=null, operatorId=null,
      * rechargeType=1, rechargeType34a=null, cardId=6806131300048843, chargerCode=01030A0006030807,
@@ -132,34 +134,50 @@ public class Sender {
         amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
     }
 
+    public void zk(){
+        HashMap map = new HashMap();
+        ArrayList<String> o = new ArrayList<>();
+        o.add("102123");
+        map.put("dis",o);
+        amqpTemplate.convertAndSend("electricityUpd", map);
+    }
+
+    /**
+     * MonRechargeRecordDto [deviceNo=01030A0006030807, ver=3.4, operatorId=0000, rechargeType=1, rechargeType34a=null, cardId=6806131500048696, chargerCode=01030A0006030807, vin=0                , plateNumber=0       , startSoc=22, endSoc=100, ah=88, kwh=89.62, chargeTime=222, strategy=4, strategyParam=4, normalEnd=1, startTime=2023-07-01 21:50:08, traceTime=2023-07-01 21:50:31, endTime=2023-07-01 21:50:31, startKwh=31.0, endKwh=120.62, platTransFlowNum=200012150042808, chargeBookNo=0
+     *
+     *
+     * 结算消息接入:[MonRechargeRecordDto [deviceNo=0107140606033126, ver=3.4, operatorId=0000, rechargeType=1, rechargeType34a=null, cardId=6811131900002235, chargerCode=0107140606033126, vin=                 , plateNumber=        , startSoc=14, endSoc=18, ah=0, kwh=2.69, chargeTime=611, strategy=4, strategyParam=0, normalEnd=81, startTime=2023-07-14 06:05:10, traceTime=2023-07-14 06:15:24, endTime=2023-07-14 06:15:21, startKwh=169331.83, endKwh=169334.52, platTransFlowNum=101140453552713, chargeBookNo=                    , serialNo=0000, chargeSource=null, gunNum=01, msgCode=0x79, inDate=null, accumulatedKwh=null, electricityPricingPlanId=null, servicePricingPlanId=null, electricityRebatePlanId=null
+     */
     public void rp() {
+        String x79 = "MonRechargeRecordDto [deviceNo=0107140606033126, ver=3.4, operatorId=0000, rechargeType=1, " +
+                "rechargeType34a=null, cardId=6811131900002235, chargerCode=0107140606033126, vin=                 , plateNumber=        , startSoc=14, endSoc=18, ah=0, kwh=2.69, chargeTime=611, strategy=4, strategyParam=0, normalEnd=81, startTime=2023-07-14 06:05:10, traceTime=2023-07-14 06:15:24, endTime=2023-07-14 06:15:21, startKwh=169331.83, endKwh=169334.52, platTransFlowNum=101140453552713, chargeBookNo=                    , serialNo=0000, chargeSource=null, gunNum=01, msgCode=0x79, inDate=null, accumulatedKwh=null, electricityPricingPlanId=null, servicePricingPlanId=null, electricityRebatePlanId=null";
             MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
-            monRechargeRecord.setDeviceNo("0307250612011943");
-            monRechargeRecord.setCardId("7810113456160920");
+            monRechargeRecord.setDeviceNo("0107140606033126");
+            monRechargeRecord.setCardId("6811131900002235");
             monRechargeRecord.setOperatorId("0200");
-            monRechargeRecord.setRechargeType("1");
-            monRechargeRecord.setChargerCode("0307250612011943");
-            monRechargeRecord.setVin("LZYTBTBW6H1059669");
+            monRechargeRecord.setRechargeType("2");
+            monRechargeRecord.setChargerCode("0107140606033126");
+            monRechargeRecord.setVin("0");
             monRechargeRecord.setPlateNumber("0      ");
-            monRechargeRecord.setStartSoc("47");
-            monRechargeRecord.setEndSoc("99");
+            monRechargeRecord.setStartSoc("35");
+            monRechargeRecord.setEndSoc("74");
             monRechargeRecord.setAh("5273");
-            monRechargeRecord.setKwh("10.5");
-            monRechargeRecord.setChargeTime("3564");
-            monRechargeRecord.setStrategy("4");
-            monRechargeRecord.setStrategyParam("0");
-            monRechargeRecord.setNormalEnd("81");
-            monRechargeRecord.setStartTime("2023-02-14 11:38:59");
-            monRechargeRecord.setTraceTime("2022-09-29 11:10:40");
-            monRechargeRecord.setEndTime("2023-02-14 12:38:24");
-            monRechargeRecord.setStartKwh("10.0000");
-            monRechargeRecord.setEndKwh("20.5000");
-            monRechargeRecord.setPlatTransFlowNum("609141229083446");
-            monRechargeRecord.setChargeBookNo("0");
-            monRechargeRecord.setSerialNo("0000");
-            monRechargeRecord.setChargeSource("5273");
-            monRechargeRecord.setGunNum("02");
-//            monRechargeRecord.setIsComplementaryBuckle("1");
+            monRechargeRecord.setKwh("89.62");
+            monRechargeRecord.setChargeTime("222");
+            monRechargeRecord.setStrategy(null);
+            monRechargeRecord.setStrategyParam(null);
+            monRechargeRecord.setNormalEnd(null);
+            monRechargeRecord.setStartTime("2023-07-12 21:50:08");
+            monRechargeRecord.setTraceTime("2023-07-01 21:50:31");
+            monRechargeRecord.setEndTime("2023-07-12 21:50:31");
+            monRechargeRecord.setStartKwh("435049.3772");
+            monRechargeRecord.setEndKwh("435050.6902");
+            monRechargeRecord.setPlatTransFlowNum("101291620097mmm");
+            monRechargeRecord.setChargeBookNo(null);
+            monRechargeRecord.setSerialNo("0");
+            monRechargeRecord.setChargeSource(null);
+            monRechargeRecord.setGunNum("01");
+            monRechargeRecord.setIsComplementaryBuckle("1");
             monRechargeRecord.setMsgCode("0x79");
             amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
     }
@@ -379,4 +397,55 @@ public class Sender {
     }
 
 
+    public void xn(int m) {
+        int i = 0;
+        while (i < m){
+//        while (i < 1){
+            MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
+            monRechargeRecord.setDeviceNo("0507311513102521");
+            monRechargeRecord.setOperatorId("0200");
+            monRechargeRecord.setRechargeType("1");
+            monRechargeRecord.setCardId("7810113632838629");
+            monRechargeRecord.setChargerCode("0507311513102521");
+            monRechargeRecord.setVin("LZYTBTBW6H1059669");
+            monRechargeRecord.setPlateNumber("0      ");
+            monRechargeRecord.setStartSoc("47");
+            monRechargeRecord.setEndSoc("99");
+            monRechargeRecord.setAh("5273");
+            monRechargeRecord.setKwh("91.15");
+            int beginT = RandomUtil.randomInt(1,24*60*60*2);
+            int duration = RandomUtil.randomInt(30*60,4*60*60);
+            int endT = beginT + duration;
+            Date startTime = DateUtil.offset(DateUtil.beginOfDay(DateUtil.yesterday()), DateField.SECOND,beginT);
+            Date endTime = DateUtil.offset(DateUtil.beginOfDay(DateUtil.yesterday()), DateField.SECOND,endT);
+            monRechargeRecord.setStartTime(DateUtil.formatDateTime(startTime));
+            monRechargeRecord.setEndTime(DateUtil.formatDateTime(endTime));
+            monRechargeRecord.setChargeTime(String.valueOf(duration));
+            monRechargeRecord.setStrategy("4");
+            monRechargeRecord.setStrategyParam("0");
+            monRechargeRecord.setNormalEnd("81");
+            monRechargeRecord.setTraceTime("2022-08-12 17:06:27");
+            monRechargeRecord.setStartKwh("97694.18");
+            monRechargeRecord.setEndKwh("97785.33");
+            monRechargeRecord.setPlatTransFlowNum(RandomUtil.randomString(15));
+            monRechargeRecord.setChargeBookNo("0");
+            monRechargeRecord.setSerialNo("0000");
+            monRechargeRecord.setChargeSource("5273");
+            monRechargeRecord.setGunNum("02");
+            monRechargeRecord.setMsgCode("0x79");
+            amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
+            i++;
+        }
+        //deviceNo=0507311513102521, rechargeType=null, gunNum=02, cardId=7810113632838629
+
+    }
+
+    public static void main(String[] args) {
+        Set a = new HashSet();
+        Random random = new Random();
+        for (int i = 0; i < 10000; i++) {
+            a.add(random.nextInt(1000000));
+        }
+        System.out.println(a.size());
+    }
 }

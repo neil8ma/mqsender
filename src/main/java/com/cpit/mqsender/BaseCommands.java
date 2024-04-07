@@ -4,6 +4,7 @@ import cn.hutool.Hutool;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONUtil;
@@ -15,12 +16,15 @@ import com.cpit.icp.dto.billing.connectivity.BfBusinessStrategyT;
 import com.cpit.icp.dto.common.ResultInfo;
 import com.cpit.icp.dto.resource.BrBatterycharge;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @ShellComponent
 public class BaseCommands {
@@ -35,6 +39,9 @@ public class BaseCommands {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @ShellMethod("普天桩发消息")
     public void p() {
@@ -54,6 +61,21 @@ public class BaseCommands {
         }
     }
 
+    @ShellMethod("测试redis")
+    public void redis() {
+        redisTemplate.opsForZSet().add("myzset", "member1", 0.5);
+        redisTemplate.opsForZSet().add("myzset", "member2", 0.1);
+        redisTemplate.opsForZSet().add("myzset", "member3", 0.8);
+        redisTemplate.opsForZSet().add("myzset", "member4", 0.2);
+        redisTemplate.opsForZSet().add("myzset", "member5", 0.6);
+        redisTemplate.opsForZSet().add("myzset", "member6", 0.9);
+        Set oks = redisTemplate.opsForZSet().reverseRangeByScore("myzset",0.0,0.56);
+        TimeInterval timer = DateUtil.timer();
+        Set ok = redisTemplate.opsForZSet().reverseRangeByScore("myzset",0.0,0.56,0,1);
+        System.out.println(timer.interval()+"毫秒");
+        System.out.println(new ArrayList<>(ok).get(0));
+    }
+
     @ShellMethod("普天桩发消息")
     public void error(String _batteryCode,String _cardNo) {
         batteryCode = _batteryCode;
@@ -69,6 +91,11 @@ public class BaseCommands {
     @ShellMethod("普天桩发消息")
     public void rp() {
         sender.rp();
+    }
+
+    @ShellMethod("折扣")
+    public void zk() {
+        sender.zk();
     }
 
     @ShellMethod("普天桩发消息")
@@ -89,6 +116,11 @@ public class BaseCommands {
         String maming = "maming is ok";
         return DateUtil.date().toString();
 //        return maming.substring(0,2);
+    }
+
+    @ShellMethod("性能测试发消息")
+    public void xn(int i) {
+        sender.xn(i);
     }
     @ShellMethod("亿联桩发消息")
     public void init() {
@@ -316,6 +348,9 @@ public class BaseCommands {
             }
             System.out.println("");
         }
+
+        Set set = new HashSet();
+        set.stream().filter(str -> str
     }
 
 }
