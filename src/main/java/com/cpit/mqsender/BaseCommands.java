@@ -102,6 +102,10 @@ public class BaseCommands {
     public void ps() {
         sender.sendps();
     }
+    @ShellMethod("普天桩35度")
+    public void du() {
+        sender.sendnotifyRule();
+    }
     @ShellMethod("英飞源桩发消息")
     public void y() {
         sender.sendYFY();

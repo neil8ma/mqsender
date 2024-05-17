@@ -149,36 +149,40 @@ public class Sender {
      * 结算消息接入:[MonRechargeRecordDto [deviceNo=0107140606033126, ver=3.4, operatorId=0000, rechargeType=1, rechargeType34a=null, cardId=6811131900002235, chargerCode=0107140606033126, vin=                 , plateNumber=        , startSoc=14, endSoc=18, ah=0, kwh=2.69, chargeTime=611, strategy=4, strategyParam=0, normalEnd=81, startTime=2023-07-14 06:05:10, traceTime=2023-07-14 06:15:24, endTime=2023-07-14 06:15:21, startKwh=169331.83, endKwh=169334.52, platTransFlowNum=101140453552713, chargeBookNo=                    , serialNo=0000, chargeSource=null, gunNum=01, msgCode=0x79, inDate=null, accumulatedKwh=null, electricityPricingPlanId=null, servicePricingPlanId=null, electricityRebatePlanId=null
      */
     public void rp() {
-        String x79 = "MonRechargeRecordDto [deviceNo=0107140606033126, ver=3.4, operatorId=0000, rechargeType=1, " +
-                "rechargeType34a=null, cardId=6811131900002235, chargerCode=0107140606033126, vin=                 , plateNumber=        , startSoc=14, endSoc=18, ah=0, kwh=2.69, chargeTime=611, strategy=4, strategyParam=0, normalEnd=81, startTime=2023-07-14 06:05:10, traceTime=2023-07-14 06:15:24, endTime=2023-07-14 06:15:21, startKwh=169331.83, endKwh=169334.52, platTransFlowNum=101140453552713, chargeBookNo=                    , serialNo=0000, chargeSource=null, gunNum=01, msgCode=0x79, inDate=null, accumulatedKwh=null, electricityPricingPlanId=null, servicePricingPlanId=null, electricityRebatePlanId=null";
+        /**
+         * todo 定位测试分时加字段需求
+         * 过程消息接入: [MonRechargeRecordProcessDto [deviceNo=0307311513103014, rechargeType=null, gunNum=02, cardId=7810115800246065, accumulatedKwh=30.4406, accumulatedAh=1370, startSOC=null, currentSOC=81, ammeterKwh=null, accumulatedMinutes=26, startTime=2024-05-06 17:48:47, currentTime=2024-05-06 18:14:47, flowNumber=707240506239647]]
+         */
+        String x79 = "MonRechargeRecordDto [deviceNo=0307210809110664, ver=3.4a, operatorId=0000, rechargeType=1, rechargeType34a=05, cardId=7810119987678897, chargerCode=0307210809110664, vin=0                , plateNumber=0       , startSoc=22, endSoc=100, ah=31, kwh=29.13, chargeTime=90, normalEnd=1, startTime=2024-04-15 10:40:44, traceTime=2024-04-15 10:42:27, endTime=2024-04-15 10:42:24, startKwh=0.0, endKwh=29.13, platTransFlowNum=107240415916821, chargeBookNo=0                   , serialNo=0000, chargeSource=null, gunNum=01, msgCode=0x79, isLateDeductionFee=null, isComplementaryBuckle=null, groupUser=null, isRebill=false, inQuTime=";
             MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
-            monRechargeRecord.setDeviceNo("0107140606033126");
-            monRechargeRecord.setCardId("6811131900002235");
+            monRechargeRecord.setDeviceNo("0107010705120821");
+            monRechargeRecord.setChargerCode("0107010705120821");
+            monRechargeRecord.setCardId("7810115116907057");
+            monRechargeRecord.setStartTime("2024-05-06 17:48:49");
+            monRechargeRecord.setEndTime("2024-05-06 22:48:49");
+            monRechargeRecord.setChargeTime("18000");
+            monRechargeRecord.setKwh("89.62");
+            monRechargeRecord.setMsgCode("0x79");
+
+            monRechargeRecord.setPlatTransFlowNum("101291620097mmm");
             monRechargeRecord.setOperatorId("0200");
             monRechargeRecord.setRechargeType("2");
-            monRechargeRecord.setChargerCode("0107140606033126");
             monRechargeRecord.setVin("0");
             monRechargeRecord.setPlateNumber("0      ");
             monRechargeRecord.setStartSoc("35");
             monRechargeRecord.setEndSoc("74");
             monRechargeRecord.setAh("5273");
-            monRechargeRecord.setKwh("89.62");
-            monRechargeRecord.setChargeTime("222");
             monRechargeRecord.setStrategy(null);
             monRechargeRecord.setStrategyParam(null);
             monRechargeRecord.setNormalEnd(null);
-            monRechargeRecord.setStartTime("2023-07-12 21:50:08");
-            monRechargeRecord.setTraceTime("2023-07-01 21:50:31");
-            monRechargeRecord.setEndTime("2023-07-12 21:50:31");
+            monRechargeRecord.setTraceTime("2024-05-06 17:48:47");
             monRechargeRecord.setStartKwh("435049.3772");
             monRechargeRecord.setEndKwh("435050.6902");
-            monRechargeRecord.setPlatTransFlowNum("101291620097mmm");
             monRechargeRecord.setChargeBookNo(null);
             monRechargeRecord.setSerialNo("0");
             monRechargeRecord.setChargeSource(null);
             monRechargeRecord.setGunNum("01");
             monRechargeRecord.setIsComplementaryBuckle("1");
-            monRechargeRecord.setMsgCode("0x79");
             amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
     }
 
@@ -196,6 +200,12 @@ public class Sender {
         monRechargeRecord.setCurrentTime("2022-11-03 10:22:33");
         monRechargeRecord.setFlowNumber("101031022039647");
         amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
+    }
+
+    public void sendnotifyRule(){
+        Map<String, Object> rabitMap = new HashMap<>();
+        rabitMap.put("rule",4143);
+        amqpTemplate.convertAndSend("electricityUpd", rabitMap);
     }
 
     public void sendps() {
