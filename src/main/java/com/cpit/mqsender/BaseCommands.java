@@ -12,9 +12,11 @@ import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import com.cpit.common.Dispatcher;
 import com.cpit.common.JsonUtil;
+import com.cpit.icp.dto.billing.balance.BalanceChangeMsg;
 import com.cpit.icp.dto.billing.connectivity.BfBusinessStrategyT;
 import com.cpit.icp.dto.common.ResultInfo;
 import com.cpit.icp.dto.resource.BrBatterycharge;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.shell.standard.ShellComponent;
@@ -42,6 +44,9 @@ public class BaseCommands {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @ShellMethod("普天桩发消息")
     public void p() {
@@ -131,6 +136,21 @@ public class BaseCommands {
         sender.init();
     }
 
+    @ShellMethod("亿联桩发消息")
+    public void sz() {
+        sender.sz();
+    }
+
+    @ShellMethod("单卡多发消息")
+    public void dk() {
+        sender.dk();
+    }
+
+    @ShellMethod("先付后用单卡多发消息")
+    public void payfirst() {
+        sender.payFirst();
+    }
+
     @ShellMethod("亿联结算消息")
     public void yl(){
         sender.sendYL();
@@ -154,6 +174,17 @@ public class BaseCommands {
     @ShellMethod("亿联桩发消息")
     public void ji(int i) {
         sender.setji(i);
+    }
+
+    @ShellMethod("余额变动发消息")
+    public void yuer(int i) {
+//        sender.balanceUpdate(i);
+        for (int j = 0; j < 100000; j++) {
+            BalanceChangeMsg balanceChangeMsg =
+                    BalanceChangeMsg.builder().userId(10758).userType(1).groupBID(null).build();
+            amqpTemplate.convertAndSend("icp-balance-change-queue", balanceChangeMsg);
+        }
+
     }
 
     @ShellMethod("调用计费策略")

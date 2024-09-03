@@ -16,11 +16,10 @@ import java.io.InputStreamReader;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.cpit" })
+@MapperScan(basePackages = "com.cpit.mqsender.dao", annotationClass = com.cpit.common.MyBatisDao.class)
 @EnableRabbit
 public class MqsenderApplication {
     public static void main(String[] args) {
         SpringApplication.run(MqsenderApplication.class, args);
     }
-
-
 }

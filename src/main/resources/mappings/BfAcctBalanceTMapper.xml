@@ -1,0 +1,1220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cpit.mqsender.dao.BfAcctBalanceTMapper">
+  <resultMap id="BaseResultMap" type="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+    <id column="acct_balance_id" jdbcType="BIGINT" property="acctBalanceId" />
+    <result column="balance_type_id" jdbcType="INTEGER" property="balanceTypeId" />
+    <result column="acct_id" jdbcType="INTEGER" property="acctId" />
+    <result column="eff_date" jdbcType="TIMESTAMP" property="effDate" />
+    <result column="exp_date" jdbcType="TIMESTAMP" property="expDate" />
+    <result column="balance" jdbcType="DECIMAL" property="balance" />
+    <result column="cycle_upper_type" jdbcType="VARCHAR" property="cycleUpperType" />
+    <result column="object_type" jdbcType="VARCHAR" property="objectType" />
+    <result column="serv_id" jdbcType="INTEGER" property="servId" />
+    <result column="write_off" jdbcType="DECIMAL" property="writeOff" />
+    <result column="pre_use" jdbcType="DECIMAL" property="preUse" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="arrear_fee" jdbcType="DECIMAL" property="arrearFee" />
+    <result column="if_transdata" jdbcType="INTEGER" property="ifTransdata" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    acct_balance_id, balance_type_id, acct_id, eff_date, exp_date, balance, cycle_upper_type, 
+    object_type, serv_id, write_off, pre_use, change_date, arrear_fee, if_transdata
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bf_acct_balance_t
+    where acct_balance_id = #{acctBalanceId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bf_acct_balance_t
+    where acct_balance_id = #{acctBalanceId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+    insert into bf_acct_balance_t (acct_balance_id, balance_type_id, acct_id, 
+      eff_date, exp_date, balance, 
+      cycle_upper_type, object_type, serv_id, 
+      write_off, pre_use, change_date, 
+      arrear_fee, if_transdata)
+    values (#{acctBalanceId,jdbcType=BIGINT}, #{balanceTypeId,jdbcType=INTEGER}, #{acctId,jdbcType=INTEGER}, 
+      #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, #{balance,jdbcType=DECIMAL}, 
+      #{cycleUpperType,jdbcType=VARCHAR}, #{objectType,jdbcType=VARCHAR}, #{servId,jdbcType=INTEGER}, 
+      #{writeOff,jdbcType=DECIMAL}, #{preUse,jdbcType=DECIMAL}, #{changeDate,jdbcType=TIMESTAMP}, 
+      #{arrearFee,jdbcType=DECIMAL}, #{ifTransdata,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+    insert into bf_acct_balance_t
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="acctBalanceId != null">
+        acct_balance_id,
+      </if>
+      <if test="balanceTypeId != null">
+        balance_type_id,
+      </if>
+      <if test="acctId != null">
+        acct_id,
+      </if>
+      <if test="effDate != null">
+        eff_date,
+      </if>
+      <if test="expDate != null">
+        exp_date,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="cycleUpperType != null">
+        cycle_upper_type,
+      </if>
+      <if test="objectType != null">
+        object_type,
+      </if>
+      <if test="servId != null">
+        serv_id,
+      </if>
+      <if test="writeOff != null">
+        write_off,
+      </if>
+      <if test="preUse != null">
+        pre_use,
+      </if>
+      <if test="changeDate != null">
+        change_date,
+      </if>
+      <if test="arrearFee != null">
+        arrear_fee,
+      </if>
+      <if test="ifTransdata != null">
+        if_transdata,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="acctBalanceId != null">
+        #{acctBalanceId,jdbcType=BIGINT},
+      </if>
+      <if test="balanceTypeId != null">
+        #{balanceTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="acctId != null">
+        #{acctId,jdbcType=INTEGER},
+      </if>
+      <if test="effDate != null">
+        #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null">
+        #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleUpperType != null">
+        #{cycleUpperType,jdbcType=VARCHAR},
+      </if>
+      <if test="objectType != null">
+        #{objectType,jdbcType=VARCHAR},
+      </if>
+      <if test="servId != null">
+        #{servId,jdbcType=INTEGER},
+      </if>
+      <if test="writeOff != null">
+        #{writeOff,jdbcType=DECIMAL},
+      </if>
+      <if test="preUse != null">
+        #{preUse,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arrearFee != null">
+        #{arrearFee,jdbcType=DECIMAL},
+      </if>
+      <if test="ifTransdata != null">
+        #{ifTransdata,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateByExampleSelective" parameterType="map">
+    update bf_acct_balance_t
+    <set>
+      <if test="record.acctBalanceId != null">
+        acct_balance_id = #{record.acctBalanceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.balanceTypeId != null">
+        balance_type_id = #{record.balanceTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.acctId != null">
+        acct_id = #{record.acctId,jdbcType=INTEGER},
+      </if>
+      <if test="record.effDate != null">
+        eff_date = #{record.effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expDate != null">
+        exp_date = #{record.expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.balance != null">
+        balance = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cycleUpperType != null">
+        cycle_upper_type = #{record.cycleUpperType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objectType != null">
+        object_type = #{record.objectType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servId != null">
+        serv_id = #{record.servId,jdbcType=INTEGER},
+      </if>
+      <if test="record.writeOff != null">
+        write_off = #{record.writeOff,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preUse != null">
+        pre_use = #{record.preUse,jdbcType=DECIMAL},
+      </if>
+      <if test="record.changeDate != null">
+        change_date = #{record.changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.arrearFee != null">
+        arrear_fee = #{record.arrearFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ifTransdata != null">
+        if_transdata = #{record.ifTransdata,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bf_acct_balance_t
+    set acct_balance_id = #{record.acctBalanceId,jdbcType=BIGINT},
+      balance_type_id = #{record.balanceTypeId,jdbcType=INTEGER},
+      acct_id = #{record.acctId,jdbcType=INTEGER},
+      eff_date = #{record.effDate,jdbcType=TIMESTAMP},
+      exp_date = #{record.expDate,jdbcType=TIMESTAMP},
+      balance = #{record.balance,jdbcType=DECIMAL},
+      cycle_upper_type = #{record.cycleUpperType,jdbcType=VARCHAR},
+      object_type = #{record.objectType,jdbcType=VARCHAR},
+      serv_id = #{record.servId,jdbcType=INTEGER},
+      write_off = #{record.writeOff,jdbcType=DECIMAL},
+      pre_use = #{record.preUse,jdbcType=DECIMAL},
+      change_date = #{record.changeDate,jdbcType=TIMESTAMP},
+      arrear_fee = #{record.arrearFee,jdbcType=DECIMAL},
+      if_transdata = #{record.ifTransdata,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+    update bf_acct_balance_t
+    <set>
+      <if test="balanceTypeId != null">
+        balance_type_id = #{balanceTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="acctId != null">
+        acct_id = #{acctId,jdbcType=INTEGER},
+      </if>
+      <if test="effDate != null">
+        eff_date = #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null">
+        exp_date = #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleUpperType != null">
+        cycle_upper_type = #{cycleUpperType,jdbcType=VARCHAR},
+      </if>
+      <if test="objectType != null">
+        object_type = #{objectType,jdbcType=VARCHAR},
+      </if>
+      <if test="servId != null">
+        serv_id = #{servId,jdbcType=INTEGER},
+      </if>
+      <if test="writeOff != null">
+        write_off = #{writeOff,jdbcType=DECIMAL},
+      </if>
+      <if test="preUse != null">
+        pre_use = #{preUse,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null">
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arrearFee != null">
+        arrear_fee = #{arrearFee,jdbcType=DECIMAL},
+      </if>
+      <if test="ifTransdata != null">
+        if_transdata = #{ifTransdata,jdbcType=INTEGER},
+      </if>
+    </set>
+    where acct_balance_id = #{acctBalanceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+    update bf_acct_balance_t
+    set balance_type_id = #{balanceTypeId,jdbcType=INTEGER},
+      acct_id = #{acctId,jdbcType=INTEGER},
+      eff_date = #{effDate,jdbcType=TIMESTAMP},
+      exp_date = #{expDate,jdbcType=TIMESTAMP},
+      balance = #{balance,jdbcType=DECIMAL},
+      cycle_upper_type = #{cycleUpperType,jdbcType=VARCHAR},
+      object_type = #{objectType,jdbcType=VARCHAR},
+      serv_id = #{servId,jdbcType=INTEGER},
+      write_off = #{writeOff,jdbcType=DECIMAL},
+      pre_use = #{preUse,jdbcType=DECIMAL},
+      change_date = #{changeDate,jdbcType=TIMESTAMP},
+      arrear_fee = #{arrearFee,jdbcType=DECIMAL},
+      if_transdata = #{ifTransdata,jdbcType=INTEGER}
+    where acct_balance_id = #{acctBalanceId,jdbcType=BIGINT}
+  </update>
+  <!-- 尚传祥自定义的sql的语句 -->
+  <select id="selectBfAcctBalanceTByAcctIdAndBalanceTypeId" 
+  		  parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT" 
+  		  resultMap="BaseResultMap">
+  	 SELECT
+		acct_balance_id,
+  		balance_type_id,
+		acct_id,
+  		balance	
+	FROM
+		bf_acct_balance_t
+	WHERE
+		acct_id = #{acctId} and balance_type_id = #{balanceTypeId}
+  </select>
+  
+	<insert id="insertAccountBalanceInfo" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+		insert into bf_acct_balance_t
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="acctBalanceId != null">
+	        acct_balance_id,
+	      </if>
+	      <if test="balanceTypeId != null">
+	        balance_type_id,
+	      </if>
+	      <if test="acctId != null">
+	        acct_id,
+	      </if>
+	      <if test="effDate != null">
+	        eff_date,
+	      </if>
+	      <if test="expDate != null">
+	        exp_date,
+	      </if>
+	      <if test="balance != null">
+	        balance,
+	      </if>
+	      <if test="cycleUpperType != null">
+	        cycle_upper_type,
+	      </if>
+	      <if test="objectType != null">
+	        object_type,
+	      </if>
+	      <if test="servId != null">
+	        serv_id,
+	      </if>
+	      <if test="writeOff != null">
+	        write_off,
+	      </if>
+	      <if test="preUse != null">
+	        pre_use,
+	      </if>
+	      <if test="changeDate != null">
+	        change_date,
+	      </if>
+	      <if test="arrearFee != null">
+	        arrear_fee,
+	      </if>
+	      <if test="ifTransdata != null">
+	        if_transdata,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="acctBalanceId != null">
+	        #{acctBalanceId,jdbcType=BIGINT},
+	      </if>
+		  <if test="balanceTypeId != null">
+	        #{balanceTypeId,jdbcType=INTEGER},
+	      </if>
+	      <if test="acctId != null">
+	        #{acctId,jdbcType=INTEGER},
+	      </if>
+	      <if test="effDate != null">
+	        #{effDate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="expDate != null">
+	        #{expDate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="balance != null">
+	        #{balance,jdbcType=DECIMAL},
+	      </if>
+	      <if test="cycleUpperType != null">
+	        #{cycleUpperType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="objectType != null">
+	        #{objectType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="servId != null">
+	        #{servId,jdbcType=INTEGER},
+	      </if>
+	      <if test="writeOff != null">
+	        #{writeOff,jdbcType=DECIMAL},
+	      </if>
+	      <if test="preUse != null">
+	        #{preUse,jdbcType=DECIMAL},
+	      </if>
+	      <if test="changeDate != null">
+	        #{changeDate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="arrearFee != null">
+	        #{arrearFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="ifTransdata != null">
+	        #{ifTransdata,jdbcType=INTEGER},
+	      </if>
+    	</trim>
+	</insert>
+	<update id="updateAcctBalance" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+		update 
+		bf_acct_balance_t 
+		<set>
+			<if test="amount != null">
+				balance = balance + #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="changeDate !=null">
+				change_date = #{changeDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="effDate != null">
+	        	eff_date = #{effDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="expDate != null">
+	        	exp_date = #{expDate,jdbcType=TIMESTAMP}
+	        </if>
+		</set> 
+	    where acct_id=#{acctId,jdbcType=INTEGER} and balance_type_id=#{balanceTypeId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateAccountBalance" parameterType="com.cpit.icp.dto.billing.balance.RechargeEntity">
+		update bf_acct_balance_t
+		    <set>
+		      <if test="amount != null">
+		        balance = balance + #{amount,jdbcType=DECIMAL},
+		      </if>
+		      <if test="changeDate != null">
+		        change_date = #{changeDate,jdbcType=TIMESTAMP}
+		      </if>
+		    </set>
+		    <where>
+				balance_type_id=#{balanceTypeId,jdbcType=INTEGER} and acct_id=#{acctId,jdbcType=INTEGER}
+				<if test="acctBalanceId!=null">
+					and acct_balance_id=#{acctBalanceId,jdbcType=BIGINT}
+				</if>
+			</where>
+	</update>
+	<!-- 柜面个人充值更新账本余额表 -->
+	<update id="updateAcctInfos" parameterType="com.cpit.icp.dto.billing.balance.RechargeBean">
+		update  bf_acct_balance_t set balance = #{balance,jdbcType=DECIMAL},change_date = #{changeDate,jdbcType=TIMESTAMP} where acct_id=#{acctId,jdbcType=INTEGER} and balance_type_id=#{balanceTypeId,jdbcType=INTEGER}
+	</update>	
+	<!--查询账本余额及其他字段信息 -->
+	<select id="selectBfAcctBalanceTInfo"
+			parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT"
+			resultMap="BaseResultMap">
+  		select * from bf_acct_balance_t
+		<where>
+			<if test="acctBalanceId!=null">
+				acct_balance_id=#{acctBalanceId,jdbcType=BIGINT}
+			</if>
+			<if test="balanceTypeId!=null">
+				and balance_type_id=#{balanceTypeId,jdbcType=INTEGER}
+			</if>
+			<if test="acctId!=null">
+				and acct_id=#{acctId,jdbcType=INTEGER}
+			</if>
+			and acct_id is not null and acct_id !="" and balance_type_id is not null and balance_type_id !=""
+		</where>				
+  	</select>
+	<!--查询账本余额及其他字段信息 -->
+	<select id="selectAcctInfos" 
+			parameterType="java.lang.String" 
+			resultMap="BaseResultMap">
+  		select acct_balance_id,balance,balance_type_id from bf_acct_balance_t 
+		<where>
+			<if test="acctBalanceId!=null">
+				acct_balance_id=#{acctBalanceId,jdbcType=BIGINT}
+			</if>
+			<if test="acctId!=null">
+				and acct_id=#{acctId,jdbcType=INTEGER}
+			</if>
+		</where>				
+  	</select>
+  	<!-- 退卡专用，更新账本余额表 -->
+  		<update id="updateAcctsBalance" parameterType="java.util.List">
+  			<foreach collection="bfList" item="item" index="index" open="" close="" separator=";">	
+				update bf_acct_balance_t
+				set balance = #{item.balance},change_date = #{item.changeDate}
+		        where acct_id = #{item.acctId,jdbcType=INTEGER} and balance_type_id = #{item.balanceTypeId,jdbcType=INTEGER}
+	  		</foreach>
+		</update>
+		<!-- 集团B配额充值，批量更新余额 -->
+		<update id="updateBatchAccountBalance" parameterType="java.util.List">
+  			<foreach collection="list" item="item" index="index" open="" close="" separator=";">	
+				update bf_acct_balance_t
+				<set>
+			      <if test="item.amount != null" >
+			        balance = balance + #{item.amount},
+			      </if>
+			      <if test="item.changeDate != null">
+		        	change_date = #{item.changeDate},
+		      	  </if>
+		        </set>
+		        where acct_id = #{item.acctId,jdbcType=INTEGER} and balance_type_id = #{item.balanceTypeId,jdbcType=INTEGER}		
+	  		</foreach>
+		</update>
+		
+  	<!-- 新增账本 -->
+  	<insert id="addAccountsMethod" 
+  			parameterType="java.util.List">
+  		INSERT INTO bf_acct_balance_t
+	    (
+	    acct_balance_id,
+  		balance_type_id,
+		acct_id,
+  		balance,
+  		object_type,
+  		pre_use,
+  		write_off,
+  		serv_id,
+  		change_date
+  		)
+		VALUES
+  		<foreach collection="list" item="item" index="index" separator=",">
+  			(   
+  				#{item.acctBalanceId,jdbcType=BIGINT},
+	  			#{item.balanceTypeId,jdbcType=INTEGER},
+	  			#{item.acctId,jdbcType=INTEGER},
+	  			#{item.balance,jdbcType=DECIMAL},
+	  			#{item.objectType,jdbcType=VARCHAR},
+	  			#{item.preUse,jdbcType=DECIMAL},
+	  			#{item.writeOff,jdbcType=DECIMAL},
+	  			#{item.servId,jdbcType=INTEGER},
+	  			#{item.changeDate,jdbcType=TIMESTAMP}
+  			) 
+  		</foreach>
+  	</insert>
+
+  	<!-- 获取相应的账本条数 -->
+  	<select id="getAccoutBookCount" 
+  			parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT" 
+			resultType="Integer">
+			select 
+				count(*)
+			from bf_acct_balance_t
+			where acct_id =  #{acctId,jdbcType=INTEGER} and balance_type_id = #{balanceTypeId,jdbcType=INTEGER}	
+	</select>
+
+  	<!-- 值越小优先级越高 -->
+	<select id="selectBalanceByAcctIdWithPrioritySort" resultMap="BaseResultMap">
+  	 SELECT
+  	 	btp.priority,
+		abt.acct_balance_id,
+  		abt.balance_type_id,
+		abt.acct_id,
+  		abt.balance	
+	 FROM
+		bf_balance_type_plan_t btp , 
+		bf_user_balance_type_plan_t ubtp , 
+		bf_acct_balance_t abt
+	 WHERE
+		btp.`plan_id` = ubtp.`plan_id`
+		and ubtp.`object_id` = #{acctId}
+		and abt.`balance_type_id` = btp.balance_type_id
+		and ubtp.`object_id` = abt.`serv_id`
+	 ORDER BY btp.priority ASC
+  	</select>
+  	
+  	<select id="selectBalanceByAcctIdWithPrioritySortFromDefaultScheme" resultMap="BaseResultMap">
+  	 SELECT
+		abt.acct_balance_id,
+  		abt.balance_type_id,
+		abt.acct_id,
+  		abt.balance	
+	 FROM
+		bf_acct_balance_t abt , bf_balance_type_plan_t type
+	 WHERE
+		abt.`serv_id` = #{acctId}
+		and abt.balance_type_id = type.balance_type_id
+		and type.plan_name = '默认账本配置'
+	 ORDER BY type.priority ASC
+  	</select>
+  	
+  	<!-- 账本有效期延长 -->
+  	<update id="updateExDateByKey">
+  		update bf_acct_balance_t set exp_date = #{effDate}
+  		where acct_balance_id = #{acctBalanceId}
+  	</update>
+  	<!-- 获取主账户的余额-->
+  	<select id="getMainAccountBalance" resultMap="BaseResultMap">
+  		SELECT
+			IFNULL(SUM(b.balance),null) as balance 
+		FROM bb_account a 
+  		LEFT JOIN bf_acct_balance_t b ON b.acct_id = a.account_id
+		WHERE 1=1
+		<if test="custId !=null">
+			and a.cust_id = #{custId}
+		</if>
+			and a.account_type = '2'
+			and a.status_cd = '1';
+		
+  	</select>
+  	<!-- 获取当前账号的余额 -->
+  	<select id="getCurrentAccountBalance" resultMap="BaseResultMap">
+  		SELECT
+		IFNULL(SUM(c.balance),null) as balance 
+	FROM bb_user_inst a 
+		LEFT JOIN bb_acct_user_rel b ON a.user_id = b.user_id
+	  	LEFT JOIN bf_acct_balance_t c ON b.account_id = c.acct_id
+	WHERE 1=1
+			and a.card_id = TRIM(REPLACE(#{cardNo},' ',''))
+			
+		<!-- <if test="serviceId !=null and serviceId !=''">
+	  		and a.service_id = TRIM(REPLACE(#{serviceId},' ',''))
+	  	</if> -->
+	  	<if test="custId !=null and custId !=''">
+	  		and a.cust_id = #{custId}
+	  	</if>
+	  	<if test="type !=null and type==3">
+	  		and AND b.if_default_acct = '0'
+	  	</if>
+			and a.status_cd='1'
+		  	and a.serving_status !='0'
+  	</select>
+  	<!-- 扣费服务功能 -->
+  	<update id="deductAccountsService" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+		update bf_acct_balance_t
+	    <set>
+	      <if test="effDate != null">
+	        eff_date = #{effDate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="expDate != null">
+	        exp_date = #{expDate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="balance != null">
+	        balance = balance + #{balance,jdbcType=DECIMAL},
+	      </if>
+	      <if test="cycleUpperType != null">
+	        cycle_upper_type = #{cycleUpperType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="objectType != null">
+	        object_type = #{objectType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="writeOff != null">
+	        write_off = #{writeOff,jdbcType=DECIMAL},
+	      </if>
+	      <if test="preUse != null">
+	        pre_use = #{preUse,jdbcType=DECIMAL},
+	      </if>
+	      <if test="changeDate != null">
+	        change_date = #{changeDate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="arrearFee != null">
+	        arrear_fee = #{arrearFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="ifTransdata != null">
+	        if_transdata = #{ifTransdata,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    <where>
+				acct_balance_id=#{acctBalanceId,jdbcType=BIGINT}
+			<if test="balanceTypeId!=null">
+				and balance_type_id=#{balanceTypeId,jdbcType=INTEGER}
+			</if>
+			<if test="acctId!=null">
+				and acct_id=#{acctId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</update>
+	<!--根据集团编码获取集团B下用户的总账本余额-->
+	<select id="batchSelectAccountBalanceByAccountIds" parameterType="java.util.List" resultMap="BaseResultMap">
+		select acct_id,IFNULL(SUM(balance),0) as balance from bf_acct_balance_t 
+		where 1 = 1
+		and acct_id in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		group by acct_id
+	</select>
+	<!-- 根据集团B编码获取集团的资金账户余额和赠送账户余额 -->
+	<select id="getGroupBFundAndGiftBalance" resultMap="BaseResultMap">
+		SELECT
+			a.balance_type_id,
+			a.balance
+		FROM
+			bf_acct_balance_t a
+		LEFT JOIN bb_account b ON b.account_id = a.acct_id
+		LEFT JOIN bb_group_cust c ON c.cust_id = b.cust_id
+		where c.group_id = #{groupId,jdbcType=VARCHAR}
+		and b.account_type =2 and b.status_cd =1
+	</select>
+	<!-- 根据集团B编码和卡号获取集团用户的资金账户余额和赠送账户余额 -->
+	<select id="getGroupBUserFundAndGiftBalance" resultMap="BaseResultMap">
+		SELECT
+			a.balance_type_id,
+			a.balance
+		FROM
+			bf_acct_balance_t a
+		LEFT JOIN bb_account b ON b.account_id = a.acct_id
+		LEFT JOIN bb_acct_user_rel d ON d.account_id = b.account_id
+		LEFT JOIN bb_user_inst e ON e.user_id = d.user_id
+		LEFT JOIN bb_group_cust c ON c.cust_id = b.cust_id
+		LEFT JOIN bb_group_user f ON f.user_id = e.user_id
+		WHERE
+			c.group_id = #{groupId,jdbcType=VARCHAR}
+		AND e.card_id = #{cardId,jdbcType=VARCHAR}
+		AND b.account_type = 1
+		AND b.status_cd = 1
+		AND e.status_cd = 1
+		AND f.status_cd = 1
+		AND d.if_default_acct = '0'
+	</select>
+	<select id="getAcctBalance" resultMap="BaseResultMap">
+		SELECT
+			a.acct_id,
+			IFNULL(SUM(a.balance), 0) AS balance
+		FROM
+			bf_acct_balance_t a
+		LEFT JOIN bb_user_inst b ON b.user_id = a.serv_id
+		WHERE
+			b.card_id = #{cardId,jdbcType=VARCHAR}
+		AND b.status_cd = 1
+		GROUP BY
+			a.acct_id
+	</select>
+	
+	<select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+			acct_id,
+			serv_id,
+			balance_type_id,
+			object_type
+		FROM
+			`bf_acct_balance_t`
+		WHERE
+			acct_id IN (
+				SELECT
+					acct_id
+				FROM
+					bf_acct_balance_t
+				WHERE
+					serv_id IS NOT NULL
+				AND serv_id !=- 1
+				AND acct_id IS NOT NULL
+				AND balance_type_id IS NOT NULL
+				GROUP BY
+					acct_id
+				HAVING
+					count(acct_id) = #{count}
+			);
+	</select>
+	<!-- 更新账本表的balance字段，不更新日期，适用于割接 -->
+	<update id="updateAcctsBalanceByKey" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+ 		update bf_acct_balance_t set balance = CASE acct_balance_id 
+ 		<foreach collection="bfList"  item="item" index ="index">
+	 		WHEN #{item.acctBalanceId} THEN #{item.balance}
+ 		</foreach>
+ 		END
+ 		where acct_balance_id in
+ 		<foreach collection="bfList"  item="item" index ="index" open="(" separator="," close=")">
+	 		#{item.acctBalanceId} 		
+ 		</foreach>
+ 	</update>
+ 	<!-- 仅适用于网厅个人充值 -->
+ 	<select id="getPersonolUserAccountByCardId" parameterType="java.lang.String" resultType="java.lang.Integer">
+ 		SELECT
+			a.account_id
+		FROM
+			bb_acct_user_rel a
+		LEFT JOIN bb_user_inst b ON a.user_id = b.user_id
+		WHERE
+			b.card_id = #{cardId}
+		AND b.serving_status != '0';
+ 	</select>
+ 	<!-- 网厅充值时，先获取当前卡的账本余额 -->
+ 	<select id="queryAcctBalancesBycardId" parameterType="java.lang.String" resultMap="BaseResultMap">
+ 		SELECT
+		a.balance_type_id,a.balance
+		FROM
+			`bf_acct_balance_t` a
+		LEFT JOIN bb_user_inst b ON b.user_id = a.serv_id
+		WHERE
+			b.card_id = #{cardId}
+		AND b.serving_status != 0
+		AND b.status_cd != 0
+ 	</select>
+ 	<!-- 东软割接对于余额为0的用户要修改服务状态 ,首先获取-->
+ 	<select id='getBalanceEqualZeroInfo' resultMap="BaseResultMap">
+ 		SELECT
+			serv_id,
+			SUM(balance)
+		FROM
+			bf_acct_balance_t
+		WHERE
+			serv_id IS NOT NULL
+		AND serv_id != 0 
+		GROUP BY
+			serv_id
+		HAVING
+			SUM(balance) = 0;
+ 	</select>
+ 	<!-- 批量更新服务状态 -->
+ 	<update id="updateBatchServiceStatus" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+ 		update bb_user_inst set serving_status = CASE user_id 
+ 		<foreach collection="bfList"  item="item" index ="index">
+	 		WHEN #{item.servId} THEN '1'
+ 		</foreach>
+ 		END
+ 		where user_id in
+ 		<foreach collection="bfList"  item="item" index ="index" open="(" separator="," close=")">
+	 		#{item.servId} 		
+ 		</foreach>
+ 		and status_cd=1 and serving_status=3
+ 	</update>
+ 	<!-- 从东软的bf_acct_item_t表中获取同一个acct_id对应的amount金额之和合计 -->
+ 	<select id="batchQueryItemAmount" 
+			parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT" 
+			resultMap="BaseResultMap">
+  		select acct_id,SUM(amount)as balance
+  			from bf_acct_item_t
+		where acct_id in
+		 		<foreach collection="bfList"  item="item" index ="index" open="(" separator="," close=")">
+			 		#{item.acctId,jdbcType=INTEGER}		
+		 		</foreach>
+					and acct_id is not null and acct_id !=""
+			GROUP BY acct_id	
+  	</select>
+  	
+  	<!-- 针对割接库中的集团B的用户新建 账户时需要用户Id的查询-->
+  	<select id="selectUserIdByAcctId" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT" resultMap="BaseResultMap">
+  		select user_id as serv_id from bb_acct_user_rel  where account_id =#{acctId,jdbcType=INTEGER}; 
+  	</select>
+  	  	<!--仅适用于 集团A 集团B 不行  针对 广州0元套餐 给集团A下面的用户余额为0的充值0.01 -->
+  	<select id="getEligibleUsers" parameterType="java.lang.String" resultMap="BaseResultMap">
+  		SELECT
+			a.acct_id,a.serv_id,SUM(balance) AS balance
+		FROM
+			bf_acct_balance_t a
+		LEFT JOIN bb_account b ON a.acct_id = b.account_id
+		LEFT JOIN bb_acct_user_rel c ON b.account_id = c.account_id
+		LEFT JOIN bb_user_inst d ON c.user_id = d.user_id
+		WHERE offer_id in (10094,1005) and d.status_cd=1 and d.city_code=#{cityCode}
+		GROUP BY a.acct_id
+  	</select>
+  	<!-- 割接 获取用户级账户 -->
+  	<select id="queryUserAcct" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		SELECT
+			account_id
+		FROM
+			bb_account 
+		WHERE account_type=1 and city_code=#{cityCode}
+  	</select>
+  	<!-- 割接 获取用户级账户信息 -->
+  	<select id="queryUserAcctInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		SELECT
+			account_id as acct_id,
+			user_id as serv_id
+		FROM
+		    bb_acct_user_rel
+		where account_id in
+		 		<foreach collection="reList"  item="item" index ="index" open="(" separator="," close=")">
+			 		#{item,jdbcType=INTEGER}	
+		 		</foreach>
+  	</select>
+  	<!-- 割接 获取集团级账户 -->
+  	<select id="queryGroupAcct" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		SELECT
+			account_id
+		FROM
+			bb_account 
+		WHERE account_type=2 and city_code=#{cityCode}
+  	</select>
+  	<!-- 割接  获取账本信息中的账户id集合 -->
+  	<select id="getBfAcctIds" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		SELECT
+			a.acct_id
+		FROM
+			bf_acct_balance_t a
+		LEFT JOIN bb_account b ON a.acct_id = b.account_id
+		WHERE
+			b.city_code = #{cityCode}
+		 GROUP BY a.acct_id
+  	</select>
+  	<!-- 给xqs提供的清除余额的接口 scx二期开发 -->
+  	<update id="clearAcctBalances" parameterType="java.lang.Integer" >
+  		update bf_acct_balance_t set balance = 0
+  			<where>
+	  			acct_id =#{_parameter,jdbcType=INTEGER}
+  			  <if test="_parameter==null or _parameter==''">
+  			  	and 1=0
+  			  </if>
+  			     and balance_type_id !=3;
+  			</where> 
+  	</update>
+  	<!-- 批量更新用户信息 -->
+  	<update id="batchUpdateUserStatus" parameterType="com.cpit.icp.dto.billing.balance.UpdateUserDao">
+  		update bb_user_inst set serving_status = #{servingStatus} where user_id in
+  		<foreach collection="userIdList"  item="item" index ="index" open="(" separator="," close=")">
+		    #{item,jdbcType=INTEGER}
+		</foreach>
+  	</update>
+  	<select id="selectByAcctBalanceId" resultType="java.math.BigDecimal" parameterType="java.lang.Long">
+  		select balance from bf_acct_balance_t
+  			where acct_balance_id=#{acct_balance_id}
+  	</select>
+  	
+  	
+  	<update id="updateBalanceByAcctBalanceId">
+  		update bf_acct_balance_t
+  			set balance=#{balance}
+  			where acct_balance_id=#{acct_balance_id}
+  	</update>
+  	<!-- 给小程序提供的根据userId获取各账本余额的接口 -->
+  	<!--查询账本余额及其他字段信息 -->
+	<select id="queryMiniProgramsBalanceByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select serv_id,balance_type_id,balance from bf_acct_balance_t where serv_id=#{servId};				
+  	</select>
+  	<!-- 根据用户id获取账户信息 二期移植2019年12月12日14:37:33-->
+  	<select id="queryAcctInfosByServId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select
+	  		acct_balance_id,
+	  		acct_id,
+	  		balance,
+	  		balance_type_id
+  		from bf_acct_balance_t where serv_id=#{servId};
+  	</select>
+  	
+  	<!-- 根据账户主键id更新账户信息 二期移植2019年12月12日14:37:33 -->
+  	<update id="updateAcctBalanceByacctBalanceId" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+  		update bf_acct_balance_t set balance = #{balance},change_date=#{changeDate} where acct_balance_id = #{acctBalanceId};
+  	</update>
+  	<update id="batchUpdateUserServerStatus">
+  		update bb_user_inst set serving_status = #{servingStatus} where b.serving_status != 0 AND status_cd='1' and user_id in
+  		<foreach collection="userIdList"  item="item" index ="index" open="(" separator="," close=")">
+		    #{item,jdbcType=INTEGER}
+		</foreach>
+  	</update>
+  	<select id="selectUserInfoByCardIds">
+  		select card_id,user_id,serving_status from bb_user_inst where serving_status != 0 AND status_cd='1' and card_id in
+  		<foreach collection="cardIdList"  item="item" index ="index" open="(" separator="," close=")">
+		    #{item,jdbcType=INTEGER}
+		</foreach>
+  	</select>
+  	<select id="queryBalancesBycardIds" resultMap="BaseResultMap">
+ 		SELECT
+		a.acct_balance_id,a.balance_type_id,a.balance
+		FROM
+			`bf_acct_balance_t` a
+		LEFT JOIN bb_user_inst b ON b.user_id = a.serv_id
+		WHERE
+			b.serving_status != 0
+		AND b.status_cd != 0
+		AND	b.card_id in 
+			<foreach collection="cardIdList"  item="item" index ="index" open="(" separator="," close=")">
+		    	#{item,jdbcType=INTEGER}
+			</foreach>
+ 	</select>
+ 	<update id="updateBatchAccountBalanceByKey" parameterType="java.util.List">
+  			<foreach collection="list" item="item" index="index" open="" close="" separator=";">	
+				update bf_acct_balance_t
+				<set>
+			      <if test="item.amount != null" >
+			        balance = balance + #{item.amount},
+			      </if>
+			      <if test="item.changeDate != null">
+		        	change_date = #{item.changeDate},
+		      	  </if>
+		        </set>
+		        where acct_balance_id = #{item.acctBalanceId,jdbcType=INTEGER} 	
+	  		</foreach>
+	</update>
+	<update id="updateAcctsBalanceByUserId" parameterType="com.cpit.icp.dto.billing.recharge.BatchRechargeDto">
+  		update bf_acct_balance_t set balance = balance + #{amount},change_date = #{rechargeDate} where balance_type_id = #{balanceTypeId}  and serv_id in
+  		<foreach collection="userIdList"  item="item" index ="index" open="(" separator="," close=")">
+		    #{item,jdbcType=INTEGER}
+		</foreach>
+		and serv_id!=0 and serv_id is not null and LENGTH(serv_id)&gt;0
+	</update>
+	<select id="queryBalancesByUserIds" parameterType="com.cpit.icp.dto.billing.recharge.BatchRechargeDto" resultMap="BaseResultMap">
+		SELECT 
+		a.serv_id,
+		a.balance,
+		b.acct_balance_id,
+		b.acct_id,
+		b.balance_type_id 
+		FROM
+		(
+ 		SELECT
+			serv_id,sum(balance) as balance
+		FROM
+			`bf_acct_balance_t`
+		WHERE
+			serv_id in 
+			<foreach collection="userIdList"  item="item" index ="index" open="(" separator="," close=")">
+		    	#{item,jdbcType=INTEGER}
+			</foreach>
+			and serv_id!=0 and serv_id is not null and serv_id !=''
+		GROUP BY serv_id) a,bf_acct_balance_t b 
+		WHERE a.serv_id = b.serv_id AND	b.balance_type_id = #{balanceTypeId}
+ 	</select>
+ 	<update id="batchUpdateUserServiceStatus" parameterType="com.cpit.icp.dto.billing.recharge.BatchRechargeDto">
+  		update bb_user_inst set serving_status = #{servingStatus} where user_id in
+  		<foreach collection="userIdList"  item="item" index ="index" open="(" separator="," close=")">
+		    #{item,jdbcType=INTEGER}
+		</foreach>
+		and user_id!=0 and user_id is not null
+  	</update>
+ 	<select id="getGroupBMainAcctFundAndGiftBalance" resultMap="BaseResultMap">
+		SELECT
+			a.acct_balance_id,
+			a.balance_type_id,
+			a.balance
+		FROM
+			bf_acct_balance_t a
+		LEFT JOIN bb_account b ON b.account_id = a.acct_id
+		LEFT JOIN bb_group_cust c ON c.cust_id = b.cust_id
+		where c.group_id = #{groupId,jdbcType=VARCHAR}
+		and b.account_type =2 and b.status_cd =1
+	</select>
+
+    <resultMap id="BfAcctBalanceT" type="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+        <id column="acct_balance_id" jdbcType="BIGINT" property="acctBalanceId" />
+        <result column="balance_type_id" jdbcType="INTEGER" property="balanceTypeId" />
+        <result column="acct_id" jdbcType="INTEGER" property="acctId" />
+        <result column="eff_date" jdbcType="TIMESTAMP" property="effDate" />
+        <result column="exp_date" jdbcType="TIMESTAMP" property="expDate" />
+        <result column="balance" jdbcType="DECIMAL" property="balance" />
+        <result column="cycle_upper_type" jdbcType="VARCHAR" property="cycleUpperType" />
+        <result column="object_type" jdbcType="VARCHAR" property="objectType" />
+        <result column="serv_id" jdbcType="INTEGER" property="servId" />
+        <result column="write_off" jdbcType="DECIMAL" property="writeOff" />
+        <result column="pre_use" jdbcType="DECIMAL" property="preUse" />
+        <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+        <result column="arrear_fee" jdbcType="DECIMAL" property="arrearFee" />
+        <result column="if_transdata" jdbcType="INTEGER" property="ifTransdata" />
+    </resultMap>
+    <select id="getAllUserSchemeBalance" resultMap="BfAcctBalanceT">
+        SELECT
+        btp.priority,
+        abt.acct_balance_id,
+        abt.balance_type_id,
+        abt.acct_id,
+        abt.balance
+        FROM
+        bf_balance_type_plan_t btp ,
+        bf_user_balance_type_plan_t ubtp ,
+        bf_acct_balance_t abt
+        WHERE
+        btp.`plan_id` = ubtp.`plan_id`
+        and abt.`balance_type_id` = btp.balance_type_id
+        and ubtp.`object_id` = abt.`serv_id`
+        and ubtp.`state` = 1
+        and abt.`serv_id` = #{acctId}
+        ORDER BY btp.priority ASC
+    </select>
+
+    <select id="getGroupBGroupId2UserAccountIdList" resultType="com.cpit.icp.dto.billing.deductionfee.GroupBGroupId2AccountId">
+        SELECT account_id as accountId, b.group_id as groupId
+        FROM bb_acct_user_rel a, (
+        SELECT b1.user_id,b2.serving_status,b1.group_type,b1.group_id group_id FROM bb_group_user b1,bb_user_inst b2
+        where b1.status_cd = 1
+        and b1.user_id=b2.user_id
+        and b2.serving_status  in (1,3) )b
+        WHERE a.user_id = b.user_id and a.status_cd = 1
+        and if(b.group_type=2, a.if_default_acct = 0,a.if_default_acct=1)
+        and b.group_id=#{groupId}
+        ORDER BY b.group_id
+    </select>
+
+    <!--获取集团B主账户-->
+    <select id="getGroupBMainAccount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select account_id from bb_account a ,(select cust_id from bb_group_cust where group_id=#{groupId,jdbcType=VARCHAR} and group_type=2)b where a.cust_id = b.cust_id and a.account_type = 2;
+    </select>
+
+  <select id="selectBatchAccountBalanceAccAmount" resultType="java.math.BigDecimal" parameterType="com.cpit.icp.dto.billing.recharge.BatchRechargeDto">
+      SELECT
+              balance
+      FROM
+              bf_acct_balance_t
+      WHERE
+      balance_type_id = #{balanceTypeId}  and serv_id in
+      <foreach collection="userIdList"  item="item" index ="index" open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+      </foreach>
+      and serv_id!=0 and serv_id is not null and LENGTH(serv_id)&gt;0
+    </select>
+    <select id="getGroupBBalanceList" resultType="java.util.Map">
+        SELECT
+        gc.group_id AS group_id,
+        u.card_id AS card_id,
+        sum(
+        IF
+        ( b.balance_type_id = '1', b.balance, 0 )) AS zj_balance,
+        sum(
+        IF
+        ( b.balance_type_id = '2', b.balance, 0 )) AS zs_balance,
+        sum(
+        IF
+        ( b.balance_type_id = '3', b.balance, 0 )) AS zx_balance
+        FROM
+        bb_user_inst u
+        INNER JOIN bb_group_cust gc ON gc.cust_id = u.cust_id
+        INNER JOIN bb_account ac ON gc.cust_id = ac.cust_id
+        INNER JOIN bf_acct_balance_t b ON  ac.account_id = b.acct_id
+
+        where
+        ac.account_type = 2
+        -- 				AND u.card_id IN ('6806131100046331','6806131800046375')
+        AND  u.card_id IN <foreach item="item" index="index" collection="array" open="(" separator="," close=")">#{item}</foreach>
+        GROUP BY
+        gc.group_id,u.card_id
+    </select>
+    <select id="queryUserTypeByUserId" resultType="java.lang.Integer">
+        SELECT
+            CASE
+                WHEN c.group_type = 1 THEN 2
+                WHEN c.group_type = 2 THEN 3
+                END  userType
+        FROM
+            bb_group_user u
+                INNER JOIN bb_group_cust c ON u.group_id = c.group_id
+        WHERE
+            u.user_id = #{userId}
+            LIMIT 1
+    </select>
+    <select id="getGroupBId" resultType="java.lang.String">
+        SELECT
+            g.group_id group_id
+        FROM
+            bb_account a
+                INNER JOIN bb_group_cust g ON a.cust_id =g.cust_id
+        WHERE
+            a.account_id = #{acctId}
+        LIMIT 1
+    </select>
+    <select id="selectByAcctIdAndBalanceTypeId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from bf_acct_balance_t
+        where acct_id=#{acctId,jdbcType=INTEGER} and balance_type_id=#{balanceTypeId,jdbcType=INTEGER}
+    </select>
+    <select id="getgroupBCustById" resultType="com.cpit.icp.dto.crm.GroupCust">
+        select
+            bc.group_id group_id,
+            gc.if_average if_average
+        from bb_group_cust gc
+        where
+            gc.group_id = #{groupId}
+    </select>
+
+    <select id="getAcctBalanceToUserIdAndTypeId"
+            parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT"
+            resultMap="BaseResultMap">
+    select * from bf_acct_balance_t
+        where serv_id=#{userId} and balance_type_id=#{balanceTypeId}
+
+    </select>
+    <select id="getGroupBUserFundBalance" resultType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
+        select
+            sum(b.balance) balance
+        from
+            bb_group_cust gc
+                inner join bb_account a on gc.cust_id = a.cust_id
+                inner join bf_acct_balance_t b on a.account_id = b.acct_id
+        where
+            gc.group_id = #{groupId}
+          and
+            a.account_type = 1
+          and
+            a.status_cd = 1
+          and
+            b.balance_type_id = 1
+        group by gc.group_id
+    </select>
+
+
+    <update id="clearAcctBalancesToType1">
+        update bf_acct_balance_t set balance =balance-#{refundAmount}
+        <where>
+            acct_id =#{acctId,jdbcType=INTEGER}
+            <if test="acctId ==null or acctId==''">
+                and 1=0
+            </if>
+            and balance_type_id =1
+        </where>
+    </update>
+
+    <update id="clearAcctBalancesToType2" >
+        update bf_acct_balance_t set balance = 0
+        <where>
+            <if test="acctId==null or acctId==''">
+                1=0 and
+            </if>
+            acct_id =#{acctId} and
+            balance_type_id =2
+        </where>
+    </update>
+</mapper>
