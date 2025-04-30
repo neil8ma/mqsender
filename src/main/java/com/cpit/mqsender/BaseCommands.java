@@ -81,6 +81,11 @@ public class BaseCommands {
         System.out.println(new ArrayList<>(ok).get(0));
     }
 
+    @ShellMethod("发先付后退过程消息依恋")
+    public void payfirst_p_yl(){
+        sender.payfirst_p_yl();
+    }
+
     @ShellMethod("普天桩发消息")
     public void error(String _batteryCode,String _cardNo) {
         batteryCode = _batteryCode;
@@ -98,9 +103,14 @@ public class BaseCommands {
         sender.rp();
     }
 
+    @ShellMethod("测试发消息性能")
+    public void cheshixingneng() {
+        sender.rp();
+    }
+
     @ShellMethod("折扣")
-    public void zk() {
-        sender.zk();
+    public void zk(int rebateId) {
+        sender.zk(rebateId);
     }
 
     @ShellMethod("普天桩发消息")
@@ -151,7 +161,7 @@ public class BaseCommands {
         sender.payFirst();
     }
 
-    @ShellMethod("亿联结算消息")
+    @ShellMethod("驿联结算消息")
     public void yl(){
         sender.sendYL();
     }
@@ -384,5 +394,7 @@ public class BaseCommands {
             System.out.println("");
         }
     }
+
+
 
 }

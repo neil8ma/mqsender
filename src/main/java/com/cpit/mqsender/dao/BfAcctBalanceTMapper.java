@@ -248,10 +248,6 @@ public interface BfAcctBalanceTMapper {
 	//二期移植2019年12月12日14:39:49
 	void updateAcctBalanceByacctBalanceId(BfAcctBalanceT bfAcctBalanceT);
 
-	//2020年4月17日22:47:36
-	public List<User> selectUserInfoByCardIds(@Param("cardIdList")List<String> cardIdList);
-
-	//2020年4月17日23:13:49
 	List<BfAcctBalanceT> queryBalancesBycardIds(@Param("cardIdList")List<String> cardIdList);
 
 
@@ -270,14 +266,9 @@ public interface BfAcctBalanceTMapper {
 	void batchUpdateUserServiceStatus(BatchRechargeDto batchRechargeDto);
 
 	List<BfAcctBalanceT> getAllUserSchemeBalance(Long acctId);
-
-	List<BfAcctBalanceT> getGroupBGroupId2UserAccountIdList(String groupId);
-
     Integer getGroupBMainAccount(String groupId);
 
 	BigDecimal selectBatchAccountBalanceAccAmount(BatchRechargeDto batchRechargeDto);
-
-    List<Map> getGroupBBalanceList(String[] cardIds);
 
 	void clearAcctBalancesToType1(@Param("acctId") Integer acctId,@Param("refundAmount")  String refundAmount);
 	void clearAcctBalancesToType2(@Param("acctId") Integer acctId);
@@ -293,4 +284,7 @@ public interface BfAcctBalanceTMapper {
 	BfAcctBalanceT getAcctBalanceToUserIdAndTypeId(@Param("userId") Integer userId, @Param("balanceTypeId") Integer balanceTypeId);
 
     BfAcctBalanceT getGroupBUserFundBalance(@Param("groupId") String groupId);
+
+	void insertCenterTransNo(@Param("centerTransId") String centerTransId,@Param("deviceNo") String deviceNo,
+	@Param("objId") String objId,@Param("reqSystemId") String reqSystemId);
 }

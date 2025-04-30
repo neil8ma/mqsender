@@ -38,7 +38,7 @@ public class RabbitCongfig {
 
     @Bean
     public Queue Queue() {
-        return new Queue("dealMsg");
+        return new Queue("dealMsg",true);
     }
 
     @Bean

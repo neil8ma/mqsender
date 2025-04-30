@@ -89,6 +89,11 @@
     delete from bf_acct_balance_t
     where acct_balance_id = #{acctBalanceId,jdbcType=BIGINT}
   </delete>
+  <insert id="insertCenterTransNo" >
+      insert into bf_center_trans_t (center_trans_id,  device_no,obj_id, req_system_id)
+      values (#{centerTransId,jdbcType=VARCHAR}, #{deviceNo,jdbcType=VARCHAR},
+              #{objId,jdbcType=VARCHAR}, #{reqSystemId,jdbcType=VARCHAR},)
+  </insert>
   <insert id="insert" parameterType="com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT">
     insert into bf_acct_balance_t (acct_balance_id, balance_type_id, acct_id, 
       eff_date, exp_date, balance, 
