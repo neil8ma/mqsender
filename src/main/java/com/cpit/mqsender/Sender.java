@@ -5,6 +5,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSON;
 import com.cpit.icp.dto.billing.baseconfig.BfAcctBalanceT;
 import com.cpit.icp.dto.collect.MonRechargeRecordDto;
 import com.cpit.icp.dto.collect.MonRechargeRecordProcessDto;
@@ -277,19 +278,42 @@ public class Sender {
      * 102124验证配置桩折扣是否更新站展示表
      */
     public void zk(int rebateId){
-//        HashMap map = new HashMap();
-//        ArrayList<String> o = new ArrayList<>();
+        HashMap map = new HashMap();
+        ArrayList<String> o = new ArrayList<>();
 //        o.add("102123");
 //        map.put("dis",o);
 //        amqpTemplate.convertAndSend("electricityUpd", map);
+//        int i = 1;
+//        while(i < 10000){
+//            o.add("40202102");
+//            o.add("40205686");
+//            o.add("40204663");
+//            map.put("ele",o);
+//            rp();
+//            amqpTemplate.convertAndSend("electricityUpd", map);
+//            i++;
+//        }
+
+        int j = 1;
+        while(j < 2){
+            o.add("101794");
+            o.add("101755");
+            o.add("101747");
+            map.put("dis",o);
+            rp();
+            amqpTemplate.convertAndSend("electricityUpd", map);
+            j++;
+        }
+
+
         //验证配置桩折扣是否更新站展示表
 //        HashMap map = new HashMap();
 //        map.put("rebatePlanId",102124);
 //        amqpTemplate.convertAndSend("displayPriceMsg", map);
         //验证折扣价与基础点击相等情况
-        HashMap mapx = new HashMap();
-        mapx.put("rebatePlanId",rebateId);
-        amqpTemplate.convertAndSend("displayPriceMsg", mapx);
+//        HashMap mapx = new HashMap();
+//        mapx.put("rebatePlanId",rebateId);
+//        amqpTemplate.convertAndSend("displayPriceMsg", mapx);
 //        try {
 //            Thread.sleep(2000);
 //        } catch (InterruptedException e) {
@@ -317,15 +341,15 @@ public class Sender {
          * startSOC=null, currentSOC=81, ammeterKwh=null, accumulatedMinutes=26,
          * startTime=2024-05-06 17:48:47, currentTime=2024-05-06 18:14:47, flowNumber=707240506239647]]
          */
-        String x79 = "结算消息接入:[MonRechargeRecordDto [deviceNo=0107140810042137, ver=3.4, operatorId=0000, rechargeType=1, rechargeType34a=null, cardId=7810115116907057, chargerCode=0107140810042137, vin=0                , plateNumber=0       , startSoc=22, endSoc=100, ah=65, kwh=62.03, chargeTime=554, normalEnd=1, startTime=2024-07-02 14:37:59, traceTime=2024-07-02 14:47:25, endTime=2024-07-02 14:47:13, startKwh=0.0, endKwh=62.03, platTransFlowNum=107240702552686, chargeBookNo=0                   , serialNo=0000, chargeSource=null, gunNum=01, msgCode=0x79, isLateDeductionFee=null, isComplementaryBuckle=null, groupUser=null, isRebill=false, inQuTime=]]";
+        String x79 = "MonRechargeRecordDto [deviceNo=0107140810042112, ver=3.4, rechargeType=5, rechargeType34a=null, cardId=6806131300048824, chargerCode=0107141608121906, vin=LSKG57C12KA111394, plateNumber=0       , startSoc=16, endSoc=153, ah=200, kwh=25.81, chargeTime=600, normalEnd=1, startTime=2025-09-08 08:55:01, traceTime=2025-09-08 08:55:01, endTime=2025-09-08 09:05:01, startKwh=1131.6, endKwh=1152.91, platTransFlowNum=207750908948230, chargeSource=null, gunNum=01, msgCode=0x79, isLateDeductionFee=null, isComplementaryBuckle=null, groupUser=null, isRebill=false, inQuTime=], slotPower=[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]]";
             MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
-            monRechargeRecord.setDeviceNo("0103080004032118");
-            monRechargeRecord.setChargerCode("0103080004032118");
-            monRechargeRecord.setCardId("6873131900000427");
-            monRechargeRecord.setStartTime("2024-12-06 04:39:59");
-            monRechargeRecord.setEndTime("2024-12-06 04:49:14");
-            monRechargeRecord.setChargeTime("555");
-            monRechargeRecord.setKwh("62.03");
+            monRechargeRecord.setDeviceNo("0107151406050310");
+            monRechargeRecord.setChargerCode("0107151406050310");
+            monRechargeRecord.setCardId("7810113910695640");
+            monRechargeRecord.setStartTime("2025-09-08 15:10:07");
+            monRechargeRecord.setEndTime("2025-09-08 15:20:07");
+            monRechargeRecord.setChargeTime("600");
+            monRechargeRecord.setKwh("25.81");
             monRechargeRecord.setMsgCode("0x79");
 
             monRechargeRecord.setPlatTransFlowNum("mm7240614400195");
@@ -361,8 +385,9 @@ public class Sender {
 
     public void sendpp(){
         MonRechargeRecordProcessDto monRechargeRecord = new MonRechargeRecordProcessDto();
-        monRechargeRecord.setDeviceNo("01030A0006030807");
-        monRechargeRecord.setCardId("7810119931892825");
+
+        monRechargeRecord.setCardId("7810117821307651");
+        monRechargeRecord.setDeviceNo("0107131006101436");
         monRechargeRecord.setGunNum("02");
         monRechargeRecord.setAccumulatedKwh("11.66");
         monRechargeRecord.setAccumulatedAh("3072");
@@ -735,13 +760,57 @@ public class Sender {
     public void send79kafka(List<MonRechargeRecordDto> monRechargeRecordProcessDtos) {
         MonRechargeRecordDto msg = monRechargeRecordProcessDtos.get(0);
         // 构建带Header的消息
-        ProducerRecord<String, MonRechargeRecordDto> record =
-                new ProducerRecord<>("dealMsg", msg.getPlatTransFlowNum(), msg);
-
+        String jsonstring = JSON.toJSONString(msg);
         // 添加自定义Header
-        record.headers().add("TRACE_ID", UUID.randomUUID().toString().getBytes());
-        record.headers().add("SOURCE_SYSTEM", "COLLECT".getBytes());
+        kafkaTemplate.send("DEAL_MSG", msg.getPlatTransFlowNum(), jsonstring);
+    }
 
-        kafkaTemplate.send(record);
+    public void sendProcesskafka(List<MonRechargeRecordProcessDto> settleDtos) {
+        for(int i = 0;i<settleDtos.size();i++){
+            MonRechargeRecordProcessDto msg = settleDtos.get(i);
+            String jsonstring = JSON.toJSONString(msg);
+            // 构建带Header的消息
+            kafkaTemplate.send("DEAL_PROCESS_MSG", msg.getFlowNumber(), jsonstring);
+        }
+    }
+
+    public void b6() {
+        MonRechargeRecordDto monRechargeRecord = new MonRechargeRecordDto();
+        monRechargeRecord.setCardId("7810117821307651");
+        monRechargeRecord.setDeviceNo("0107131006101436");
+        monRechargeRecord.setChargerCode("0107131006101436");
+        monRechargeRecord.setOperatorId("0200");
+        monRechargeRecord.setRechargeType("1");
+        monRechargeRecord.setVin("LZYTBTBW6H1059669");
+        monRechargeRecord.setPlateNumber("0      ");
+        monRechargeRecord.setStartSoc("47");
+        monRechargeRecord.setEndSoc("49");
+        monRechargeRecord.setAh("5273");
+        monRechargeRecord.setChargeTime("5");
+        monRechargeRecord.setStrategy("4");
+        monRechargeRecord.setStrategyParam("0");
+        monRechargeRecord.setNormalEnd("81");
+        monRechargeRecord.setStartTime("2025-5-3 15:33:09");
+        monRechargeRecord.setTraceTime("2025-9-3 15:33:00");
+        monRechargeRecord.setEndTime( "2025-5-3 15:33:14");
+        monRechargeRecord.setStartKwh("97694.18");
+        monRechargeRecord.setEndKwh("97785.33");
+        monRechargeRecord.setGunNum("02");
+        monRechargeRecord.setPlatTransFlowNum("maming982342287");
+        //                monRechargeRecord.setPlatTransFlowNum(RandomUtil.randomString(15));
+        monRechargeRecord.setChargeBookNo("0");
+        monRechargeRecord.setSerialNo("0000");
+        monRechargeRecord.setChargeSource("5273");
+        monRechargeRecord.setIsComplementaryBuckle("1");
+        String[] slotPower = new String[]{
+            "0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000",
+            "0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000",
+            "0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000",
+            "0.000","9100.950","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000",
+            "0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000"
+        };
+        monRechargeRecord.setSlotPower(slotPower);
+        monRechargeRecord.setMsgCode("0xB6");
+        amqpTemplate.convertAndSend("dealMsg", monRechargeRecord);
     }
 }

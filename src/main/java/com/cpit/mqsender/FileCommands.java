@@ -14,6 +14,8 @@ package com.cpit.mqsender;
 import com.cpit.icp.dto.collect.MonRechargeRecordDto;
 import com.cpit.icp.dto.collect.MonRechargeRecordProcessDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -25,9 +27,12 @@ import java.util.regex.*;
 
 @ShellComponent
 public class FileCommands {
+    private final static Logger logger = LoggerFactory.getLogger(FileCommands.class);
 
     @Autowired
     Sender sender;
+    @Autowired
+    ThreadPoolWork threadPoolWork;
     private static final Pattern PROCESS_PATTERN = Pattern.compile("MonRechargeRecordProcessDto \\[(.*?)\\]]");
     private static final Pattern SETTLE_PATTERN = Pattern.compile("MonRechargeRecordDto \\[(.*?)\\]]");
 
@@ -90,12 +95,36 @@ public class FileCommands {
         sender.send79process(settleDtos);
     }
 
+    @ShellMethod("由文件发过程消息")
+    public void gcxx(int i) throws IOException{
+        sxx();
+        for(int k= 0;k< 1000;k++)
+        sender.sendprocess(processDtos.get(0));
+    }
+
     @ShellMethod("由文件发消息")
     public void k() throws IOException{
-//        sender.sendprocesskafka(processDtos.get(i-1));
         sxx();
+//        for (int i = 0;i<processDtos.size();i++)
+//            sender.sendprocess(processDtos.get(i));
         sender.send79kafka(settleDtos);
-        sender.send79process(settleDtos);
+//        sender.send79process(settleDtos);
+    }
+
+    @ShellMethod("测试线程")
+    public void csxc() throws IOException{
+        threadPoolWork.doWork(new Runnable() {
+            @Override
+            public void run() {
+                logger.info("睡眠1分钟");
+                try {
+                    Thread.sleep(1000*60);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                logger.info("睡眠结束");
+            }
+        });
     }
 
     @ShellMethod("由文件发消息sdfsdf")

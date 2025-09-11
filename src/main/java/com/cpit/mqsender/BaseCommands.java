@@ -103,6 +103,11 @@ public class BaseCommands {
         sender.rp();
     }
 
+    @ShellMethod("普天桩发B6消息")
+    public void b6() {
+        sender.b6();
+    }
+
     @ShellMethod("测试发消息性能")
     public void cheshixingneng() {
         sender.rp();
