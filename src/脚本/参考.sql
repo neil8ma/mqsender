@@ -2467,7 +2467,7 @@ VALUES (@tariff_id := @tariff_id +1, @pricing_section_id_fee, '0', '0', '1', '0'
 COMMIT;
 SET @@autocommit=1;
 
--- 套餐
+-- 套餐.sql
 
 set @prod_offer_id = (SELECT max(prod_offer_id) from bb_prod_offer) ;
 DROP TABLE  IF EXISTS union_offer;
