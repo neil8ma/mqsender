@@ -66,6 +66,26 @@ public class BaseCommands {
         }
     }
 
+    @ShellMethod("套餐变更")
+    public void taochan(){
+        sender.sendOfferMsg();
+    }
+
+    @ShellMethod("基础电价变更")
+    public void jichudianjia(){
+        sender.sendjichudianjia();
+    }
+
+    @ShellMethod("用户变更变更")
+    public void yonghu(){
+        sender.notifyUser();
+    }
+
+    @ShellMethod("客户变更")
+    public void kehu(){
+        sender.notifyGroupCust();
+    }
+
     @ShellMethod("测试redis")
     public void redis() {
         redisTemplate.opsForZSet().add("myzset", "member1", 0.5);
@@ -123,7 +143,7 @@ public class BaseCommands {
         sender.sendps();
     }
     @ShellMethod("普天桩35度")
-    public void du() {
+    public void guizhe() {
         sender.sendnotifyRule();
     }
     @ShellMethod("英飞源桩发消息")
@@ -194,11 +214,11 @@ public class BaseCommands {
     @ShellMethod("余额变动发消息")
     public void yuer(int i) {
 //        sender.balanceUpdate(i);
-        for (int j = 0; j < 100000; j++) {
+//        for (int j = 0; j < 100000; j++) {
             BalanceChangeMsg balanceChangeMsg =
-                    BalanceChangeMsg.builder().userId(10758).userType(1).groupBID(null).build();
+                    BalanceChangeMsg.builder().userId(91000006).userType(1).groupBID(null).build();
             amqpTemplate.convertAndSend("icp-balance-change-queue", balanceChangeMsg);
-        }
+//        }
 
     }
 
